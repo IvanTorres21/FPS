@@ -6,7 +6,7 @@ public class BulletController : MonoBehaviour
 {
 
     Rigidbody rb;
-    public float speed = 20f;
+    public float speed = 25f;
     private int ricochetAmount = 0;
     private Vector3 currentSpeed;
 
