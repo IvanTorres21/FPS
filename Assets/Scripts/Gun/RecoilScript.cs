@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class RecoilScript : MonoBehaviour
 {
-    Vector3 currentRotation, targetRotation, targetPosition, currentPosition, initialGunPosition;
+    Vector3 currentRotation, targetRotation, targetPosition, currentPosition;
+    public Vector3 initialGunPosition;
     public Transform cam;
 
     [SerializeField] float recoilX;
