@@ -6,7 +6,7 @@ public class BulletPoolController : MonoBehaviour
 {
     private void FixedUpdate()
     {
-        if(this.transform.childCount > 80)
+        if(this.transform.childCount > 150)
         {
             Destroy(this.transform.GetChild(0).gameObject);
         }

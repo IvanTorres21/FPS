@@ -7,7 +7,7 @@ public class PlayerMovementController : MonoBehaviour
 {
     [Header("Movement")]
     private float speed = 5f;
-    private float jumpForce = 5f;
+    private float jumpForce = 150f;
 
     [Header("Camera")]
     private float mouseSensitivity = 3f;

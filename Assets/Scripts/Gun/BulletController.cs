@@ -6,25 +6,35 @@ public class BulletController : MonoBehaviour
 {
 
     Rigidbody rb;
-    public float speed = 25f;
-    private int ricochetAmount = 0;
+    public float speed = 85f;
+    private bool canRicochet = true;
+    private bool justBorn = true;
     private Vector3 currentSpeed;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         currentSpeed = rb.velocity;
+        StartCoroutine(justShot());
     }
 
 
     private void Update()
     {
-        rb.velocity = currentSpeed * FindObjectOfType<PlayerTimeController>().slowdown;
+        if(!justBorn)
+            rb.velocity = currentSpeed * FindObjectOfType<PlayerTimeController>().slowdown;
+    }
+
+    IEnumerator justShot()
+    {
+
+        yield return new WaitForSeconds(0.05f);
+        justBorn = false;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(ricochetAmount >= 3)
+        if(!canRicochet)
         {
             Destroy(this.gameObject);
         }
@@ -34,6 +44,6 @@ public class BulletController : MonoBehaviour
         Vector3 newSpeed = -2 * (Vector3.Dot(forward, normal) * normal) + forward;
         speed = speed * 0.7f;
         currentSpeed = speed * newSpeed;
-        ricochetAmount++;
+        canRicochet = false;
     }
 }

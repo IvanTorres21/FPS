@@ -5,33 +5,36 @@ using UnityEngine;
 public class InteracteableObjectController : MonoBehaviour
 {
     Rigidbody rb;
-    public Vector3 prevSpeed;
-    public Vector3 angSpeed;
+    [SerializeField] private Vector3 prevSpeed;
+    private Vector3 angSpeed;
     public float impactForce;
+    private PlayerTimeController timeController;
+    private bool timeHasPaused = false;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        timeController = FindObjectOfType<PlayerTimeController>();
     }
 
     private void Update()
     {
-        if(Input.GetKeyUp(KeyCode.Z) && FindObjectOfType<PlayerTimeController>().isTimePaused)
+        if(Input.GetKeyUp(KeyCode.Z) && timeController.isTimePaused)
         {
-            rb.useGravity = false;
             prevSpeed = rb.velocity;
-
-            Debug.Log("Time Stopped");
-              
+            timeHasPaused = true;
+            rb.useGravity = false;
         } else if(Input.GetKeyUp(KeyCode.Z))
         {
             rb.useGravity = true;
             rb.velocity = prevSpeed;
-
-            Debug.Log("Time Resumed");
+            timeHasPaused = false;
         }
-        rb.velocity = rb.velocity * FindObjectOfType<PlayerTimeController>().slowdown;
-        rb.angularVelocity = rb.angularVelocity * FindObjectOfType<PlayerTimeController>().slowdown;
+       if(timeHasPaused)
+        {
+            rb.velocity = rb.velocity * timeController.slowdown;
+            rb.angularVelocity = rb.angularVelocity * timeController.slowdown;
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
