@@ -1,10 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.SearchService;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class GunController : MonoBehaviour
+public class RocketLauncherController : MonoBehaviour
 {
     public GameObject bullet;
     public GameObject spawnPoint;
@@ -17,8 +15,9 @@ public class GunController : MonoBehaviour
     [SerializeField] private bool isAutomatic;
     [SerializeField] private float shootingSpeed;
     [SerializeField] private float reloadingSpeed;
-    [SerializeField] private int current_ammo = 7;
-    [SerializeField] private int max_ammo = 7;
+    [SerializeField] private int current_ammo = 1;
+    [SerializeField] private int max_ammo = 1;
+    [SerializeField] private GameObject FakeBullet;
 
     private AudioSource shootSound;
 
@@ -26,28 +25,27 @@ public class GunController : MonoBehaviour
 
     private void Start()
     {
-        shootSound = GetComponent<AudioSource>();
+        //shootSound = GetComponent<AudioSource>();
         bulletPool = GameObject.Find("BulletPool");
-        recoilScript = GetComponent<RecoilScript>();
     }
 
     private void Update()
     {
-        if((Input.GetMouseButtonDown(0) && !isShooting && current_ammo != 0 & !isReloading) || (isAutomatic && Input.GetMouseButton(0) && !isShooting && current_ammo != 0 & !isReloading))
+        if ((Input.GetMouseButtonDown(0) && !isShooting && current_ammo != 0 & !isReloading) || (isAutomatic && Input.GetMouseButton(0) && !isShooting && current_ammo != 0 & !isReloading))
         {
             StartCoroutine(shootBullet());
         }
-        if(Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R))
         {
             StartCoroutine(reloadGun());
-        } else if (Input.GetMouseButton(1))
+        }
+        else if (Input.GetMouseButton(1))
         {
             transform.localPosition = aimPosition;
-            GetComponent<RecoilScript>().initialGunPosition = aimPosition;
-        } else if (Input.GetMouseButtonUp(1))
+        }
+        else if (Input.GetMouseButtonUp(1))
         {
             transform.localPosition = waistPosition;
-            GetComponent<RecoilScript>().initialGunPosition = waistPosition;
         }
 
     }
@@ -56,18 +54,20 @@ public class GunController : MonoBehaviour
     {
         isReloading = true;
         yield return new WaitForSecondsRealtime(reloadingSpeed);
+        FakeBullet.SetActive(true);
         current_ammo = max_ammo;
         isReloading = false;
     }
 
     private IEnumerator shootBullet()
     {
-        shootSound.Play();
+        
+        //shootSound.Play();
         isShooting = true;
-        recoilScript.recoil();
         current_ammo--;
+        FakeBullet.SetActive(false);
         GameObject currentBullet = Instantiate(bullet, spawnPoint.transform.position, spawnPoint.transform.rotation, bulletPool.transform);
-        currentBullet.GetComponent<Rigidbody>().velocity = spawnPoint.transform.forward * currentBullet.GetComponent<BulletController>().speed;
+        currentBullet.GetComponent<Rigidbody>().velocity = spawnPoint.transform.forward * currentBullet.GetComponent<MissileController>().speed;
         yield return new WaitForSecondsRealtime(shootingSpeed);
         isShooting = false;
     }

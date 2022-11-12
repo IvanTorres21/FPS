@@ -80,6 +80,7 @@ public class PlayerTimeController : MonoBehaviour
             } else
             {
                 isTimePaused = false;
+                StartCoroutine(BringTimeBack());    
             }
             UpdateCurrentMagic();
             yield return new WaitForSeconds(0.05f);

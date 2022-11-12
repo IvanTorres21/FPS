@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Ground
   - BulletSmall
+  - Interacteable
+  - Enemy
   layers:
   - Default
   - TransparentFX

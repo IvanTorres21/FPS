@@ -1,13 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerMovementController : MonoBehaviour
 {
     [Header("Movement")]
     private float speed = 5f;
-    private float jumpForce = 150f;
+    [SerializeField] private float jumpForce = 130f;
 
     [Header("Camera")]
     private float mouseSensitivity = 3f;
@@ -34,9 +35,18 @@ public class PlayerMovementController : MonoBehaviour
 
     private void JumpPlayer()
     {
-        if(Input.GetButtonDown("Jump") && CheckGrounded())
+        if(Input.GetButton("Jump"))
         {
+
+            if(jumpForce < 170)
+            {
+                jumpForce += 30 * Time.deltaTime;
+            }
+        } else if (Input.GetButtonUp("Jump") && CheckGrounded())
+        {
+            if (jumpForce >= 170) jumpForce = 170;
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            jumpForce = 130;
         }
     }
 
