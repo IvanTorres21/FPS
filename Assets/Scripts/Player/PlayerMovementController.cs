@@ -8,6 +8,8 @@ public class PlayerMovementController : MonoBehaviour
 {
     [Header("Movement")]
     private float speed = 5f;
+    [SerializeField] private bool isGrounded = false;
+    private bool hasJumped = false;
     [SerializeField] private float jumpForce = 130f;
 
     [Header("Camera")]
@@ -35,19 +37,11 @@ public class PlayerMovementController : MonoBehaviour
 
     private void JumpPlayer()
     {
-        if(Input.GetButton("Jump"))
+        if(Input.GetButtonDown("Jump") && isGrounded)
         {
-
-            if(jumpForce < 170)
-            {
-                jumpForce += 30 * Time.deltaTime;
-            }
-        } else if (Input.GetButtonUp("Jump") && CheckGrounded())
-        {
-            if (jumpForce >= 170) jumpForce = 170;
+            hasJumped = true;
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            jumpForce = 130;
-        }
+        } 
     }
 
     private void MovePlayer()
@@ -71,13 +65,33 @@ public class PlayerMovementController : MonoBehaviour
         transform.eulerAngles += Vector3.up * y;
     }
 
-    private bool CheckGrounded()
+    private void OnTriggerStay(Collider other)
     {
-        Ray ray = new Ray(transform.position, Vector3.down);
-        if(Physics.Raycast(ray, 1.6f, 1 << 0))
+        if(other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("Interacteable"))
         {
-            return true;
+            isGrounded = true;
+            hasJumped = false;
         }
-        return false;
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("Interacteable"))
+        {
+            if(!hasJumped)
+            {
+                StopCoroutine(jumpWindow());
+                StartCoroutine(jumpWindow());
+            } else
+            {
+                isGrounded = false;
+            }
+        }
+    }
+
+    IEnumerator jumpWindow()
+    {
+        yield return new WaitForSeconds(0.2f);
+        isGrounded = false;
     }
 }
