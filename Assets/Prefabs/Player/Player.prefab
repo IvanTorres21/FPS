@@ -283,6 +283,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6718e6da51b11774dbfa2b5314376986, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isGrounded: 0
   jumpForce: 130
 --- !u!114 &17395381306556572
 MonoBehaviour:
@@ -298,6 +299,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   magicLeft: 1000
   soulgem: {fileID: 6014638433990352898}
+  soulMaterial: {fileID: 2100000, guid: c2e540ab4a9b8ad4891491fd36454d83, type: 2}
   postProcessing: {fileID: 0}
 --- !u!114 &503495353
 MonoBehaviour:

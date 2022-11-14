@@ -12,7 +12,7 @@ public class PlayerTimeController : MonoBehaviour
     [SerializeField] private float magicLeft = 1000;
 
     [SerializeField] private MeshRenderer soulgem;
-    private Color newColor;
+    [SerializeField] private Material soulMaterial;
 
     [SerializeField] private Volume postProcessing;
     private ChromaticAberration cr;
@@ -43,7 +43,7 @@ public class PlayerTimeController : MonoBehaviour
             isTimePaused = !isTimePaused;
             if (!isTimePaused)
             {
-                StartCoroutine(BringTimeBack());
+                RestoreTime();
             }
             else
             {
@@ -52,10 +52,16 @@ public class PlayerTimeController : MonoBehaviour
         }
     }
 
+    private void RestoreTime()
+    {
+        StopAllCoroutines();
+        StartCoroutine(BringTimeBack());
+    }
+
     private void UpdateCurrentMagic()
     {
-        newColor = new Color(210 * (magicLeft / 1000), 0, 255 * (magicLeft / 1000));
-        soulgem.material.SetColor("_BaseColor", newColor);
+        Color newColor = new Color(210 * (magicLeft / 1000), 0, 255 * (magicLeft / 1000));
+        soulgem.material.SetColor("_baseColor", newColor);
     }
 
     IEnumerator SlowTimeDown()
@@ -80,7 +86,7 @@ public class PlayerTimeController : MonoBehaviour
             } else
             {
                 isTimePaused = false;
-                StartCoroutine(BringTimeBack());    
+                RestoreTime();
             }
             UpdateCurrentMagic();
             yield return new WaitForSeconds(0.05f);

@@ -49,10 +49,13 @@ public class MissileController : MonoBehaviour
         foreach (Collider col in hitColliders)
         {
             Debug.Log(col.gameObject.name);
-           if(col.TryGetComponent<Rigidbody>(out rb))
+           if(col.TryGetComponent<Rigidbody>(out rb) && !col.gameObject.CompareTag("Enemy"))
             {
                 col.GetComponent<Rigidbody>().isKinematic = false;
                 col.GetComponent<Rigidbody>().AddExplosionForce(explosionForce, contactPoint, blastRadius, 1, ForceMode.Impulse);
+            } else if(col.gameObject.CompareTag("Enemy"))
+            {
+                col.GetComponent<BasicEnemyController>().TakeDamage(damage);
             }
             
         }

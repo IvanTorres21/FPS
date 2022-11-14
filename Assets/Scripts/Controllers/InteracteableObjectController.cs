@@ -24,7 +24,7 @@ public class InteracteableObjectController : MonoBehaviour
             prevSpeed = rb.velocity;
             timeHasPaused = true;
             rb.useGravity = false;
-        } else if(Input.GetKeyUp(KeyCode.Z))
+        } else if (!timeController.isTimePaused && timeHasPaused)
         {
             rb.useGravity = true;
             rb.velocity = prevSpeed;

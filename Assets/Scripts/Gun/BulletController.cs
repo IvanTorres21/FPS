@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class BulletController : MonoBehaviour
@@ -12,6 +13,7 @@ public class BulletController : MonoBehaviour
     private Vector3 currentSpeed;
     private TrailRenderer trailRenderer;
     private PlayerTimeController timeController;
+    [SerializeField] private GameObject particles;
     [SerializeField] public int damage { get; private set; } = 5;
     private void Start()
     {
@@ -46,6 +48,8 @@ public class BulletController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        GameObject generatedParticle = Instantiate(particles, transform.position, Quaternion.identity);
+        Destroy(generatedParticle, 1f);
         if(collision.gameObject.CompareTag("Interacteable") || collision.gameObject.CompareTag("Enemy"))
         {
             Destroy(this.gameObject);
