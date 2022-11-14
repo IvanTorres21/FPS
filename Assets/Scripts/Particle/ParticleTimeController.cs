@@ -36,6 +36,8 @@ public class ParticleTimeController : MonoBehaviour
         {
             hasBeenPaused = false;
         }
+
+        if (particleSystem.isStopped) Destroy(this.gameObject);
     }
 
 }

@@ -48,8 +48,8 @@ public class BulletController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        GameObject generatedParticle = Instantiate(particles, transform.position, Quaternion.identity);
-        Destroy(generatedParticle, 1f);
+        Instantiate(particles, transform.position, Quaternion.identity);
+        //Destroy(generatedParticle, 1f);
         if(collision.gameObject.CompareTag("Interacteable") || collision.gameObject.CompareTag("Enemy"))
         {
             Destroy(this.gameObject);

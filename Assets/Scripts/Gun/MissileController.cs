@@ -48,7 +48,7 @@ public class MissileController : MonoBehaviour
         Instantiate(explosionParticle, contactPoint, Quaternion.identity);
         foreach (Collider col in hitColliders)
         {
-            Debug.Log(col.gameObject.name);
+            Debug.DrawLine(contactPoint, col.transform.position);
            if(col.TryGetComponent<Rigidbody>(out rb) && !col.gameObject.CompareTag("Enemy"))
             {
                 col.GetComponent<Rigidbody>().isKinematic = false;

@@ -32,12 +32,17 @@ public class BasicEnemyController : MonoBehaviour
     [SerializeField] private Vector3 maxLookAround;
     [SerializeField] private Vector3 minLookAround;
 
+    [SerializeField] private bool isAttacking = false;
+    private Vector3 wanderPosition;
+    public Vector3 wanderPos;
     private void Start()
     {
         timeController = FindObjectOfType<PlayerTimeController>();
         player = GameObject.Find("Player");
         rb = GetComponent<Rigidbody>();
         InvokeRepeating(nameof(UpdatePaths), 0.0f, 0.4f);
+        wanderPosition = transform.position;
+        wanderPos = transform.position;
     }
 
     private void Update()
@@ -45,6 +50,11 @@ public class BasicEnemyController : MonoBehaviour
 
         ControlBehaviour();
         speed = maxSpeed * timeController.slowdown;
+
+        if(!timeHasBeenPaused)
+        {
+            lastRotation = transform.rotation;
+        }
 
         if(timeController.isTimePaused)
         {
@@ -66,13 +76,34 @@ public class BasicEnemyController : MonoBehaviour
 
     private void ControlBehaviour()
     {
-        if(!timeHasBeenPaused && (Vector3.Distance(transform.position, player.transform.position) <= 30f || hasBeenAttacked))
+       
+        if((Vector3.Distance(transform.position, player.transform.position) <= 30f))
         {
-            FollowPlayer();
+            // If there are twenty or more enemies they act as a hive
+            if (gameObject.transform.parent.transform.childCount >= 20)
+            {
+                if (!timeHasBeenPaused)
+                {
+                    transform.LookAt(player.transform);
+                }
+
+                if (!timeHasBeenPaused)
+                {
+                    FollowPlayer();
+                }
+                else
+                {
+                    isFollowing = false;
+                    StopCoroutine(followingJumps());
+                }
+            } 
+            else // If there are less than twenty they try to surround the player and become erratic in movement
+            {
+                SurroundPlayer();
+            }
         } else
         {
-            isFollowing = false;
-            StopCoroutine(followingJumps());
+            WanderAround();
         }
 
         if(timeHasBeenPaused && !timeController.isTimePaused)
@@ -89,8 +120,7 @@ public class BasicEnemyController : MonoBehaviour
         
         if(paths.Count > 0)
         {
-            transform.LookAt(player.transform);
-            lastRotation = transform.rotation;
+          
             rb.velocity = new Vector3(transform.forward.x * speed, rb.velocity.y, transform.forward.z * speed );
             
             if (transform.position == paths[0] + new Vector3(0, 0.4f, 0))
@@ -98,6 +128,56 @@ public class BasicEnemyController : MonoBehaviour
                 paths.RemoveAt(0);
             }
         }
+    }
+
+   
+    private void WanderAround()
+    {
+        if(Vector3.Distance(transform.position, wanderPos) <= 0.4f)
+        {
+            wanderPos = wanderPosition + new Vector3(Random.Range(-2, 2), this.transform.position.y, Random.Range(-2, 2));
+            wanderPos.y = this.transform.position.y;
+        } else
+        {
+            transform.LookAt(wanderPos);
+            rb.velocity = new Vector3(transform.forward.x * speed, rb.velocity.y, transform.forward.z * speed);
+        }
+    }
+
+    private void SurroundPlayer()
+    {
+        float amountOfCompanions = (float)gameObject.transform.parent.transform.childCount / (float)360;
+        float thisPositionInCircle = (amountOfCompanions * gameObject.transform.GetSiblingIndex() * 720) + 360;
+
+        Vector3 newPos = new Vector3(5 * Mathf.Sin(thisPositionInCircle) + player.transform.position.x, this.transform.position.y, 5 * Mathf.Cos(thisPositionInCircle) + player.transform.position.z);
+        if (Vector3.Distance(transform.position, newPos) <= 0.4f)
+        {
+           
+            isAttacking = true;
+            //if(!isAttacking) StartCoroutine(AttackPlayer());
+        } else if(Vector3.Distance(transform.position, newPos) >= 4f)
+        {
+            isAttacking=false;
+        }
+        if (!isAttacking)
+        {
+            transform.LookAt(newPos);
+            rb.velocity = new Vector3(transform.forward.x * speed, rb.velocity.y, transform.forward.z * speed);
+        } else
+        {
+            transform.LookAt(player.transform);
+            rb.velocity = new Vector3(transform.forward.x * speed, rb.velocity.y, transform.forward.z * speed);
+        }
+    }
+
+    private bool CompanionInFront()
+    {
+        Ray ray = new Ray(transform.position, transform.forward);
+        if (Physics.Raycast(ray, 1.6f, 1 << 8))
+        {
+            return true;
+        }
+        return false;
     }
 
     private bool checkGrounded()
