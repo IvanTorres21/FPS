@@ -13,7 +13,7 @@ public class BasicEnemyController : MonoBehaviour
     [SerializeField] private List<Vector3> paths;
 
     [SerializeField] public int hp { get; private set; } = 25;
-    [SerializeField] public int damage { get; private set; } = 30;
+    [SerializeField] public int damage { get; private set; } = 25;
 
     private Rigidbody rb;
     private float speed = 6f;

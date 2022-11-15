@@ -13,6 +13,7 @@ public class PlayerTimeController : MonoBehaviour
     [SerializeField] private float magicLeft = 1000;
     [SerializeField] private Image magicBar;
 
+    private bool canBeHit = true;
     [SerializeField] private Volume postProcessing;
     private ChromaticAberration cr;
     private FilmGrain fg;
@@ -106,5 +107,45 @@ public class PlayerTimeController : MonoBehaviour
             yield return new WaitForSeconds(0.05f);
         }
 
+    }
+
+    private void CheckHit(GameObject other)
+    {
+        // I really should change this so that enemies have a standar controller with only useful data...
+        WormGuide wg;
+        if (other.TryGetComponent<WormGuide>(out wg))
+        {
+            this.magicLeft -= wg.damage;
+            canBeHit = false;
+        }
+        BasicEnemyController be;
+        if (other.TryGetComponent<BasicEnemyController>(out be))
+        {
+            this.magicLeft -= be.damage;
+            canBeHit = false;
+        }
+        StartCoroutine(MakeInvulnerable());
+    }
+
+    IEnumerator MakeInvulnerable()
+    {
+        yield return new WaitForSeconds(0.4f);
+        canBeHit = true;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Enemy") && canBeHit && !isTimePaused)
+        {
+            CheckHit(other.gameObject);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy") && canBeHit && !isTimePaused)
+        {
+            CheckHit(collision.gameObject);
+        }
     }
 }

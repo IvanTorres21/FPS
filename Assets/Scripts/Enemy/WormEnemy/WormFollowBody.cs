@@ -11,6 +11,13 @@ public class WormFollowBody : MonoBehaviour
     private void Start()
     {
         playerTimeController = FindObjectOfType<PlayerTimeController>();
+        foreach(Transform segment in transform)
+        {
+            if(segment.name.Contains("Segment"))
+            {
+                segments.Add(segment.gameObject);
+            }
+        }
     }
 
     private void Update()
@@ -35,4 +42,6 @@ public class WormFollowBody : MonoBehaviour
             }
         }
     }
+
+    
 }

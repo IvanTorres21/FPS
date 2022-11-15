@@ -4,38 +4,49 @@ using UnityEngine;
 
 public class SegmentController : MonoBehaviour
 {
-    private Rigidbody rb;
-    private float speed = 12f;
+    [SerializeField] public Rigidbody rb { get; private set; }
     private PlayerTimeController playerTimeController;
+    [SerializeField] private bool isHead;
+    private GameObject wormGuide;
 
     private void Start()
     {
         playerTimeController = FindObjectOfType<PlayerTimeController>();
         rb = GetComponent<Rigidbody>();
+        wormGuide = GameObject.Find("WormGuide");
     }
 
     private void Update()
     {
-        if(CheckDistanceIsRight())
+        if(wormGuide != null)
         {
-            Vector3 direction = transform.forward ;
-            rb.velocity = direction.normalized * speed * playerTimeController.slowdown;
-
-        } else
-        {
-            rb.velocity = Vector3.zero;
+            rb.velocity = transform.forward.normalized * wormGuide.GetComponent<WormGuide>().speed * playerTimeController.slowdown;
+            rb.angularVelocity = rb.angularVelocity * playerTimeController.slowdown;
         }
     }
 
     private bool CheckDistanceIsRight()
     {
+        return true;
         Ray ray = new Ray(transform.position, transform.forward);
-        if(Physics.Raycast(ray, 1.3f, 1 << 9))
+        if(Physics.Raycast(ray, transform.parent.transform.localScale.z * transform.localScale.z + 1f, 1 << 9))
         {
             return false;
         } else
         {
             return true;
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("BulletSmall"))
+        {
+            BulletController bc;
+            if (collision.gameObject.TryGetComponent<BulletController>(out bc))
+            {
+                wormGuide.GetComponent<WormGuide>().GetHurt(isHead ? bc.damage : bc.damage / 5);
+            }
         }
     }
 }

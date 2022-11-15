@@ -65,6 +65,8 @@ public class PlayerMovementController : MonoBehaviour
         transform.eulerAngles += Vector3.up * y;
     }
 
+
+
     private void OnTriggerStay(Collider other)
     {
         if(other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("Interacteable"))
