@@ -22,10 +22,7 @@ public class WormFollowBody : MonoBehaviour
 
     private void Update()
     {
-        if(!playerTimeController.isTimePaused)
-        {
-            LookAtSegments();
-        }
+        LookAtSegments();
     }
 
     private void LookAtSegments()
