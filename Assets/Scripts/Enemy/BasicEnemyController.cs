@@ -99,7 +99,14 @@ public class BasicEnemyController : MonoBehaviour
             } 
             else // If there are less than twenty they try to surround the player and become erratic in movement
             {
-                SurroundPlayer();
+                if(!timeHasBeenPaused)
+                {
+                    SurroundPlayer();
+                } else
+                {
+                    isFollowing = false;
+                    StopCoroutine(followingJumps());
+                }
             }
         } else
         {
@@ -144,29 +151,41 @@ public class BasicEnemyController : MonoBehaviour
         }
     }
 
+    private bool inPosition = false;
     private void SurroundPlayer()
     {
+        if(!isFollowing)
+        {
+            StartCoroutine(followingJumps());
+        }
         float amountOfCompanions = (float)gameObject.transform.parent.transform.childCount / (float)360;
         float thisPositionInCircle = (amountOfCompanions * gameObject.transform.GetSiblingIndex() * 720) + 360;
 
         Vector3 newPos = new Vector3(5 * Mathf.Sin(thisPositionInCircle) + player.transform.position.x, this.transform.position.y, 5 * Mathf.Cos(thisPositionInCircle) + player.transform.position.z);
         if (Vector3.Distance(transform.position, newPos) <= 0.4f)
         {
-           
-            isAttacking = true;
-            //if(!isAttacking) StartCoroutine(AttackPlayer());
+            if(!inPosition)
+            {
+                StartCoroutine(RandomAttackInterval());
+                inPosition = true;
+            }
+
         } else if(Vector3.Distance(transform.position, newPos) >= 4f)
         {
-            isAttacking=false;
+            isAttacking = false;
+            inPosition = false;
         }
-        if (!isAttacking)
+
+
+        if (!isAttacking && !inPosition)
         {
             transform.LookAt(newPos);
             rb.velocity = new Vector3(transform.forward.x * speed, rb.velocity.y, transform.forward.z * speed);
-        } else
+        } else if(inPosition)
         {
             transform.LookAt(player.transform);
-            rb.velocity = new Vector3(transform.forward.x * speed, rb.velocity.y, transform.forward.z * speed);
+            if(isAttacking)
+                rb.velocity = new Vector3(transform.forward.x * speed, rb.velocity.y, transform.forward.z * speed);
         }
     }
 
@@ -189,6 +208,12 @@ public class BasicEnemyController : MonoBehaviour
         }
         return false;
 
+    }
+
+    IEnumerator RandomAttackInterval()
+    {
+        yield return new WaitForSeconds(Random.Range(1f, 3f));
+        isAttacking = true;
     }
 
     IEnumerator followingJumps()

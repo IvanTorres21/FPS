@@ -11,8 +11,6 @@ public class PlayerTimeController : MonoBehaviour
     [SerializeField] public float slowdown { get; private set; } = 1f;
     [SerializeField] private float magicLeft = 1000;
 
-    [SerializeField] private MeshRenderer soulgem;
-    [SerializeField] private Material soulMaterial;
 
     [SerializeField] private Volume postProcessing;
     private ChromaticAberration cr;
@@ -58,11 +56,7 @@ public class PlayerTimeController : MonoBehaviour
         StartCoroutine(BringTimeBack());
     }
 
-    private void UpdateCurrentMagic()
-    {
-        Color newColor = new Color(210 * (magicLeft / 1000), 0, 255 * (magicLeft / 1000));
-        soulgem.material.SetColor("_baseColor", newColor);
-    }
+
 
     IEnumerator SlowTimeDown()
     {
@@ -88,7 +82,6 @@ public class PlayerTimeController : MonoBehaviour
                 isTimePaused = false;
                 RestoreTime();
             }
-            UpdateCurrentMagic();
             yield return new WaitForSeconds(0.05f);
         }
     }
