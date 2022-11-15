@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.UI;
 
 public class PlayerTimeController : MonoBehaviour
 {
     [SerializeField] public bool isTimePaused { get; private set; } = false;
     [SerializeField] public float slowdown { get; private set; } = 1f;
     [SerializeField] private float magicLeft = 1000;
-
+    [SerializeField] private Image magicBar;
 
     [SerializeField] private Volume postProcessing;
     private ChromaticAberration cr;
@@ -48,6 +49,13 @@ public class PlayerTimeController : MonoBehaviour
                 StartCoroutine(SlowTimeDown());
             }
         }
+
+        UpdateMagicLeft();
+    }
+
+    private void UpdateMagicLeft()
+    {
+        magicBar.fillAmount = magicLeft / 1000;
     }
 
     private void RestoreTime()
