@@ -7197,19 +7197,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 17395381306556560, guid: a2735ddbe5281a24295cc062a9eb96a3, type: 3}
   m_PrefabInstance: {fileID: 17395382028756133}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &1448876400
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1448876394}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.3, y: 0.06846297, z: 0.3}
-  m_Center: {x: 0, y: -1.5340786, z: 0}
 --- !u!1 &1449577382 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5511457583154795058, guid: e4b9ccfb81ffc0f46a3a09651d9c3270, type: 3}
@@ -11508,16 +11495,8 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 17395381016031302, guid: a2735ddbe5281a24295cc062a9eb96a3, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 13400000, guid: d8b7e8035c2408a4ca2d3128456230dc, type: 2}
     - target: {fileID: 17395381306556560, guid: a2735ddbe5281a24295cc062a9eb96a3, type: 3}
       propertyPath: m_Name
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 17395381306556560, guid: a2735ddbe5281a24295cc062a9eb96a3, type: 3}
-      propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 17395381306556562, guid: a2735ddbe5281a24295cc062a9eb96a3, type: 3}
@@ -11564,26 +11543,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 17395381306556563, guid: a2735ddbe5281a24295cc062a9eb96a3, type: 3}
-      propertyPath: m_CollisionDetection
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 17395381306556572, guid: a2735ddbe5281a24295cc062a9eb96a3, type: 3}
       propertyPath: magicBar
       value: 
       objectReference: {fileID: 1721881022}
     - target: {fileID: 17395381306556572, guid: a2735ddbe5281a24295cc062a9eb96a3, type: 3}
-      propertyPath: magicLeft
-      value: 1000
-      objectReference: {fileID: 0}
-    - target: {fileID: 17395381306556572, guid: a2735ddbe5281a24295cc062a9eb96a3, type: 3}
       propertyPath: postProcessing
       value: 
       objectReference: {fileID: 1897088331}
-    - target: {fileID: 17395381306556573, guid: a2735ddbe5281a24295cc062a9eb96a3, type: 3}
-      propertyPath: jumpForce
-      value: 150
-      objectReference: {fileID: 0}
     - target: {fileID: 1953396156087310121, guid: a2735ddbe5281a24295cc062a9eb96a3, type: 3}
       propertyPath: ammoText
       value: 
@@ -11593,10 +11560,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 27832624}
     - target: {fileID: 1953396156087310121, guid: a2735ddbe5281a24295cc062a9eb96a3, type: 3}
-      propertyPath: total_ammo
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1953396156087310121, guid: a2735ddbe5281a24295cc062a9eb96a3, type: 3}
       propertyPath: needToReloadText
       value: 
       objectReference: {fileID: 1788388954}
@@ -11605,10 +11568,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 470101979}
     - target: {fileID: 5835292676131354867, guid: a2735ddbe5281a24295cc062a9eb96a3, type: 3}
-      propertyPath: total_ammo
-      value: 450
-      objectReference: {fileID: 0}
-    - target: {fileID: 5835292676131354867, guid: a2735ddbe5281a24295cc062a9eb96a3, type: 3}
       propertyPath: needToReloadText
       value: 
       objectReference: {fileID: 1788388954}
@@ -11616,10 +11575,6 @@ PrefabInstance:
       propertyPath: ammoText
       value: 
       objectReference: {fileID: 470101979}
-    - target: {fileID: 6367240404583579033, guid: a2735ddbe5281a24295cc062a9eb96a3, type: 3}
-      propertyPath: total_ammo
-      value: 600
-      objectReference: {fileID: 0}
     - target: {fileID: 6367240404583579033, guid: a2735ddbe5281a24295cc062a9eb96a3, type: 3}
       propertyPath: needToReloadText
       value: 

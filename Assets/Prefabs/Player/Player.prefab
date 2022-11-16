@@ -91,7 +91,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 17395381016031300}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: d8b7e8035c2408a4ca2d3128456230dc, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
@@ -230,9 +230,10 @@ GameObject:
   - component: {fileID: 17395381306556573}
   - component: {fileID: 17395381306556572}
   - component: {fileID: 503495353}
+  - component: {fileID: 1448876400}
   m_Layer: 3
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -269,7 +270,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &17395381306556573
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -283,7 +284,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isGrounded: 0
-  jumpForce: 130
+  jumpForce: 150
+  postProcessing: {fileID: 0}
 --- !u!114 &17395381306556572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -297,8 +299,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   magicLeft: 1000
-  soulgem: {fileID: 0}
-  soulMaterial: {fileID: 2100000, guid: c2e540ab4a9b8ad4891491fd36454d83, type: 2}
+  magicBar: {fileID: 0}
   postProcessing: {fileID: 0}
 --- !u!114 &503495353
 MonoBehaviour:
@@ -314,6 +315,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guns: []
   currentWeapon: 0
+--- !u!65 &1448876400
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 17395381306556560}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.3, y: 0.06846297, z: 0.3}
+  m_Center: {x: 0, y: -1.5340786, z: 0}
 --- !u!1 &5388634561413962640
 GameObject:
   m_ObjectHideFlags: 0
@@ -407,6 +421,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5820571308740834193, guid: 031b8f6a9ffabee4da1b39b3552e5234, type: 3}
+      propertyPath: total_ammo
+      value: 450
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 031b8f6a9ffabee4da1b39b3552e5234, type: 3}
 --- !u!4 &3183665590639375658 stripped
@@ -474,6 +492,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6368431169663102422, guid: 04280528103bb284ab5a55cb04521986, type: 3}
+      propertyPath: total_ammo
+      value: 600
+      objectReference: {fileID: 0}
+    - target: {fileID: 6368431169663102422, guid: 04280528103bb284ab5a55cb04521986, type: 3}
       propertyPath: aimPosition.x
       value: -0.258
       objectReference: {fileID: 0}
@@ -502,6 +524,10 @@ PrefabInstance:
     - target: {fileID: 894215639335543262, guid: c03fb9bd5012f0c4cb0d513f1cfb25fd, type: 3}
       propertyPath: bulletPool
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 894215639335543262, guid: c03fb9bd5012f0c4cb0d513f1cfb25fd, type: 3}
+      propertyPath: total_ammo
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1679545892854123774, guid: c03fb9bd5012f0c4cb0d513f1cfb25fd, type: 3}
       propertyPath: m_Name
