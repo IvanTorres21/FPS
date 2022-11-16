@@ -18,6 +18,7 @@ public class PlayerTimeController : MonoBehaviour
     private ChromaticAberration cr;
     private FilmGrain fg;
     private WhiteBalance wb;
+    private Vignette vi;
 
     private void Start()
     {
@@ -32,6 +33,10 @@ public class PlayerTimeController : MonoBehaviour
        if(postProcessing.profile.TryGet<WhiteBalance>(out wb))
         {
             wb.temperature.value = 0f;
+        }
+       if(postProcessing.profile.TryGet<Vignette>(out vi))
+        {
+            vi.intensity.value = 0f;
         }
     }
 
@@ -56,7 +61,8 @@ public class PlayerTimeController : MonoBehaviour
 
     private void UpdateMagicLeft()
     {
-        magicBar.fillAmount = magicLeft / 1000;
+        magicBar.fillAmount = magicLeft / 1000f;
+        vi.intensity.value = Mathf.Abs(((magicLeft / 1000) - 1) / 2);
     }
 
     private void RestoreTime()
