@@ -3,14 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class PlayerMovementController : MonoBehaviour
 {
     [Header("Movement")]
     private float speed = 5f;
+    private const float BASE_SPEED = 5f;
+    private const float MAX_SPEED = 9f;
     [SerializeField] private bool isGrounded = false;
     private bool hasJumped = false;
     [SerializeField] private float jumpForce = 130f;
+    [SerializeField] private Volume postProcessing;
 
     [Header("Camera")]
     private float mouseSensitivity = 3f;
@@ -46,6 +50,14 @@ public class PlayerMovementController : MonoBehaviour
 
     private void MovePlayer()
     {
+        if(Input.GetKey(KeyCode.LeftShift))
+        {
+            speed = MAX_SPEED;
+        } else
+        {
+            speed = BASE_SPEED;
+        }
+
         float x = Input.GetAxis("Horizontal") * speed;
         float z = Input.GetAxis("Vertical") * speed;
 

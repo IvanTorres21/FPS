@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ChangeGunController : MonoBehaviour
 {
     [SerializeField] List<GameObject> guns;
     [SerializeField] private int currentWeapon = 0;
+
 
     private void Start()
     {
@@ -46,5 +48,12 @@ public class ChangeGunController : MonoBehaviour
         }
 
         guns[currentWeapon].SetActive(true);
+        if(currentWeapon == 2)
+        {
+            guns[currentWeapon].GetComponent<RocketLauncherController>().SetAmmoText();
+        } else
+        {
+            guns[currentWeapon].GetComponent<GunController>().SetAmmoText();
+        }
     }
 }

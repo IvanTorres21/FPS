@@ -184,10 +184,13 @@ MonoBehaviour:
   aimPosition: {x: 0, y: 0, z: 0}
   waistPosition: {x: 0, y: 0, z: 0}
   isAutomatic: 0
-  shootingSpeed: 0
-  reloadingSpeed: 0
+  shootingSpeed: 0.1
+  reloadingSpeed: 0.7
   current_ammo: 7
   max_ammo: 7
+  total_ammo: 200
+  ammoText: {fileID: 0}
+  needToReloadText: {fileID: 0}
   recoilScript: {fileID: 0}
 --- !u!114 &6065067420127049619
 MonoBehaviour:

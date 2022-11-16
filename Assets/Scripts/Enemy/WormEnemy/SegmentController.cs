@@ -8,12 +8,14 @@ public class SegmentController : MonoBehaviour
     private PlayerTimeController playerTimeController;
     [SerializeField] private bool isHead;
     private GameObject wormGuide;
+    public int damage;
 
     private void Start()
     {
         playerTimeController = FindObjectOfType<PlayerTimeController>();
         rb = GetComponent<Rigidbody>();
         wormGuide = GameObject.Find("WormGuide");
+        damage = wormGuide.GetComponent<WormGuide>().damage;
     }
 
     private void Update()
@@ -36,6 +38,11 @@ public class SegmentController : MonoBehaviour
         {
             return true;
         }
+    }
+
+    public void ExplosionHit(int damage)
+    {
+        wormGuide.GetComponent<WormGuide>().GetHurt(isHead ? damage : damage / 5);
     }
 
     private void OnCollisionEnter(Collision collision)

@@ -170,14 +170,10 @@ public class WormGuide : MonoBehaviour
 
             if(isAboutToAttack && !isAttacking)
             {
-                if(transform.position.y > player.transform.position.y) //Charge at Player
-                {
-                    nextPoint = player.transform.position;
-                    isAttacking = true;
-                    isAboutToAttack = false;
-                   
-                }
-                
+                nextPoint = player.transform.position;
+                isAttacking = true;
+                isAboutToAttack = false;
+
             }
 
             if(isAttacking)

@@ -46,18 +46,29 @@ public class MissileController : MonoBehaviour
         Vector3 contactPoint = collision.contacts[0].point;
         hitColliders = Physics.OverlapSphere(contactPoint, blastRadius);
         Instantiate(explosionParticle, contactPoint, Quaternion.identity);
+        Rigidbody auxRb;
+        BasicEnemyController bc;
         foreach (Collider col in hitColliders)
         {
             Debug.DrawLine(contactPoint, col.transform.position);
-           if(col.TryGetComponent<Rigidbody>(out rb) && !col.gameObject.CompareTag("Enemy"))
+           if(col.TryGetComponent<Rigidbody>(out auxRb) && !col.gameObject.CompareTag("Enemy") && !col.gameObject.CompareTag("Worm"))
             {
-                col.GetComponent<Rigidbody>().isKinematic = false;
-                col.GetComponent<Rigidbody>().AddExplosionForce(explosionForce, contactPoint, blastRadius, 1, ForceMode.Impulse);
-            } else if(col.gameObject.CompareTag("Enemy"))
+
+                auxRb.AddExplosionForce(explosionForce, contactPoint, blastRadius, 1, ForceMode.Impulse);
+            } else if(col.gameObject.CompareTag("Enemy")) 
             {
-                col.GetComponent<BasicEnemyController>().TakeDamage(damage);
+                
+                if(col.TryGetComponent<BasicEnemyController>(out bc))
+                {
+                    bc.TakeDamage(damage);
+                } 
             }
-            
+            else if (col.CompareTag("Worm"))
+            {
+                Debug.Log("ouch");
+                col.GetComponent<SegmentController>().ExplosionHit(damage);
+            }
+
         }
 
         Destroy(this.gameObject);

@@ -23,10 +23,10 @@ public class InteracteableObjectController : MonoBehaviour
         {
             prevSpeed = rb.velocity;
             timeHasPaused = true;
-            rb.useGravity = false;
+            rb.isKinematic = true;
         } else if (!timeController.isTimePaused && timeHasPaused)
         {
-            rb.useGravity = true;
+            rb.isKinematic = false;
             rb.velocity = prevSpeed;
             timeHasPaused = false;
         }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -19,6 +20,9 @@ public class GunController : MonoBehaviour
     [SerializeField] private float reloadingSpeed;
     [SerializeField] private int current_ammo = 7;
     [SerializeField] private int max_ammo = 7;
+    [SerializeField] private int total_ammo = 200;
+    [SerializeField] private TextMeshProUGUI ammoText;
+    [SerializeField] private TextMeshProUGUI needToReloadText;
 
     private AudioSource shootSound;
 
@@ -29,6 +33,19 @@ public class GunController : MonoBehaviour
         shootSound = GetComponent<AudioSource>();
         bulletPool = GameObject.Find("BulletPool");
         recoilScript = GetComponent<RecoilScript>();
+        SetAmmoText();
+    }
+
+    public void SetAmmoText()
+    {
+        if (current_ammo <= 0)
+        {
+            needToReloadText.gameObject.SetActive(true);
+        } else
+        {
+            needToReloadText.gameObject.SetActive(false);
+        }
+        ammoText.text = current_ammo + "/" + total_ammo;
     }
 
     private void Update()
@@ -56,16 +73,30 @@ public class GunController : MonoBehaviour
     {
         isReloading = true;
         yield return new WaitForSecondsRealtime(reloadingSpeed);
-        current_ammo = max_ammo;
+        int ammo_needed = max_ammo - current_ammo;
+        if (total_ammo < ammo_needed)
+        {
+            current_ammo = total_ammo;
+            total_ammo = 0;
+        }
+        else
+        {
+            current_ammo = max_ammo;
+            total_ammo -= ammo_needed;
+        }
         isReloading = false;
+        SetAmmoText();
     }
 
     private IEnumerator shootBullet()
     {
+
         shootSound.Play();
         isShooting = true;
         recoilScript.recoil();
         current_ammo--;
+        SetAmmoText();
+        
         GameObject currentBullet = Instantiate(bullet, spawnPoint.transform.position, spawnPoint.transform.rotation, bulletPool.transform);
         currentBullet.GetComponent<Rigidbody>().velocity = spawnPoint.transform.forward * currentBullet.GetComponent<BulletController>().speed;
         yield return new WaitForSecondsRealtime(shootingSpeed);

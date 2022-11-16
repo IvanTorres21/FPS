@@ -50,7 +50,7 @@ public class BulletController : MonoBehaviour
     {
         Instantiate(particles, transform.position, Quaternion.identity);
         //Destroy(generatedParticle, 1f);
-        if(collision.gameObject.CompareTag("Interacteable") || collision.gameObject.CompareTag("Enemy"))
+        if(collision.gameObject.CompareTag("Interacteable") || collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Worm"))
         {
             Destroy(this.gameObject);
         } else

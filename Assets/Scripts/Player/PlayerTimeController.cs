@@ -83,7 +83,7 @@ public class PlayerTimeController : MonoBehaviour
 
         while(isTimePaused)
         {
-            if(magicLeft > 0)
+            if(magicLeft > 10)
             {
                 magicLeft -= 1f;
             } else
@@ -111,9 +111,10 @@ public class PlayerTimeController : MonoBehaviour
 
     private void CheckHit(GameObject other)
     {
+        Debug.Log("Ouchie");
         // I really should change this so that enemies have a standar controller with only useful data...
-        WormGuide wg;
-        if (other.TryGetComponent<WormGuide>(out wg))
+        SegmentController wg;
+        if (other.TryGetComponent<SegmentController>(out wg))
         {
             this.magicLeft -= wg.damage;
             canBeHit = false;
@@ -135,7 +136,7 @@ public class PlayerTimeController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Enemy") && canBeHit && !isTimePaused)
+        if ((other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("Worm")) && canBeHit && !isTimePaused)
         {
             CheckHit(other.gameObject);
         }
@@ -143,7 +144,7 @@ public class PlayerTimeController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Enemy") && canBeHit && !isTimePaused)
+        if ((collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Worm")) && canBeHit && !isTimePaused)
         {
             CheckHit(collision.gameObject);
         }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class RocketLauncherController : MonoBehaviour
@@ -18,7 +19,9 @@ public class RocketLauncherController : MonoBehaviour
     [SerializeField] private int current_ammo = 1;
     [SerializeField] private int max_ammo = 1;
     [SerializeField] private GameObject FakeBullet;
-
+    [SerializeField] private int total_ammo = 4;
+    [SerializeField] private TextMeshProUGUI ammoText;
+    [SerializeField] private TextMeshProUGUI needToReloadText;
     private AudioSource shootSound;
 
     [SerializeField] private RecoilScript recoilScript;
@@ -27,6 +30,19 @@ public class RocketLauncherController : MonoBehaviour
     {
         //shootSound = GetComponent<AudioSource>();
         bulletPool = GameObject.Find("BulletPool");
+        SetAmmoText();
+    }
+
+    public void SetAmmoText()
+    {
+        if (current_ammo <= 0)
+        {
+            needToReloadText.gameObject.SetActive(true);
+        } else
+        {
+            needToReloadText.gameObject.SetActive(false);
+        }
+        ammoText.text = current_ammo + "/" + total_ammo;
     }
 
     private void Update()
@@ -35,7 +51,7 @@ public class RocketLauncherController : MonoBehaviour
         {
             StartCoroutine(shootBullet());
         }
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R) && total_ammo != 0)
         {
             StartCoroutine(reloadGun());
         }
@@ -55,7 +71,17 @@ public class RocketLauncherController : MonoBehaviour
         isReloading = true;
         yield return new WaitForSecondsRealtime(reloadingSpeed);
         FakeBullet.SetActive(true);
-        current_ammo = max_ammo;
+        int ammo_needed = max_ammo - current_ammo;
+        if(total_ammo < ammo_needed)
+        {
+            current_ammo = total_ammo;
+            total_ammo = 0;
+        } else
+        {
+            current_ammo = max_ammo;
+            total_ammo -= ammo_needed;
+        }
+        SetAmmoText();
         isReloading = false;
     }
 
@@ -65,6 +91,7 @@ public class RocketLauncherController : MonoBehaviour
         //shootSound.Play();
         isShooting = true;
         current_ammo--;
+        SetAmmoText();
         FakeBullet.SetActive(false);
         GameObject currentBullet = Instantiate(bullet, spawnPoint.transform.position, spawnPoint.transform.rotation, bulletPool.transform);
         currentBullet.GetComponent<Rigidbody>().velocity = spawnPoint.transform.forward * currentBullet.GetComponent<MissileController>().speed;
