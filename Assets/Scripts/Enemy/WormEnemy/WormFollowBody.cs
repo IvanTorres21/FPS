@@ -7,7 +7,6 @@ public class WormFollowBody : MonoBehaviour
     [SerializeField] private GameObject wormGuide;
     [SerializeField] private List<GameObject> segments;
     private PlayerTimeController playerTimeController;
-
     private void Start()
     {
         playerTimeController = FindObjectOfType<PlayerTimeController>();
@@ -32,6 +31,7 @@ public class WormFollowBody : MonoBehaviour
             if (i == 0)
             {
                 segments[i].transform.LookAt(wormGuide.transform);
+                
             }
             else
             {
@@ -40,5 +40,4 @@ public class WormFollowBody : MonoBehaviour
         }
     }
 
-    
 }

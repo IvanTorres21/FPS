@@ -492,20 +492,24 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6368431169663102422, guid: 04280528103bb284ab5a55cb04521986, type: 3}
+      propertyPath: ammoText
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6368431169663102422, guid: 04280528103bb284ab5a55cb04521986, type: 3}
+      propertyPath: bulletPool
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6368431169663102422, guid: 04280528103bb284ab5a55cb04521986, type: 3}
       propertyPath: total_ammo
       value: 600
       objectReference: {fileID: 0}
     - target: {fileID: 6368431169663102422, guid: 04280528103bb284ab5a55cb04521986, type: 3}
-      propertyPath: aimPosition.x
-      value: -0.258
-      objectReference: {fileID: 0}
-    - target: {fileID: 6368431169663102422, guid: 04280528103bb284ab5a55cb04521986, type: 3}
-      propertyPath: aimPosition.y
-      value: 0.081
-      objectReference: {fileID: 0}
-    - target: {fileID: 6368431169663102422, guid: 04280528103bb284ab5a55cb04521986, type: 3}
       propertyPath: aimPosition.z
       value: -0.159
+      objectReference: {fileID: 0}
+    - target: {fileID: 6368431169663102422, guid: 04280528103bb284ab5a55cb04521986, type: 3}
+      propertyPath: needToReloadText
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 04280528103bb284ab5a55cb04521986, type: 3}

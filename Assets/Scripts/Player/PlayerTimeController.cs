@@ -63,6 +63,7 @@ public class PlayerTimeController : MonoBehaviour
     {
         magicBar.fillAmount = magicLeft / 1000f;
         vi.intensity.value = Mathf.Abs(((magicLeft / 1000) - 1) / 2);
+
     }
 
     private void RestoreTime()

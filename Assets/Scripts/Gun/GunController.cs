@@ -24,13 +24,13 @@ public class GunController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI ammoText;
     [SerializeField] private TextMeshProUGUI needToReloadText;
 
-    private AudioSource shootSound;
+    [SerializeField] private AudioSource shootSound;
+    [SerializeField] private AudioSource reloadingSound;
 
     [SerializeField] private RecoilScript recoilScript;
 
     private void Start()
     {
-        shootSound = GetComponent<AudioSource>();
         bulletPool = GameObject.Find("BulletPool");
         recoilScript = GetComponent<RecoilScript>();
         SetAmmoText();
@@ -72,6 +72,7 @@ public class GunController : MonoBehaviour
     private IEnumerator reloadGun()
     {
         isReloading = true;
+        reloadingSound.Play();
         yield return new WaitForSecondsRealtime(reloadingSpeed);
         int ammo_needed = max_ammo - current_ammo;
         if (total_ammo < ammo_needed)

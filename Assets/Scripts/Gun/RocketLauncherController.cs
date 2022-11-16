@@ -22,13 +22,13 @@ public class RocketLauncherController : MonoBehaviour
     [SerializeField] private int total_ammo = 4;
     [SerializeField] private TextMeshProUGUI ammoText;
     [SerializeField] private TextMeshProUGUI needToReloadText;
-    private AudioSource shootSound;
+    [SerializeField] private AudioSource shootSound;
+    [SerializeField] private AudioSource reloadingSound;
 
     [SerializeField] private RecoilScript recoilScript;
 
     private void Start()
     {
-        //shootSound = GetComponent<AudioSource>();
         bulletPool = GameObject.Find("BulletPool");
         SetAmmoText();
     }
@@ -69,6 +69,7 @@ public class RocketLauncherController : MonoBehaviour
     private IEnumerator reloadGun()
     {
         isReloading = true;
+        reloadingSound.Play();
         yield return new WaitForSecondsRealtime(reloadingSpeed);
         FakeBullet.SetActive(true);
         int ammo_needed = max_ammo - current_ammo;
@@ -88,7 +89,7 @@ public class RocketLauncherController : MonoBehaviour
     private IEnumerator shootBullet()
     {
         
-        //shootSound.Play();
+        shootSound.Play();
         isShooting = true;
         current_ammo--;
         SetAmmoText();
