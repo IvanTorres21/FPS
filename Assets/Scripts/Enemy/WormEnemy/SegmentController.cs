@@ -24,6 +24,9 @@ public class SegmentController : MonoBehaviour
         {
             rb.velocity = transform.forward.normalized * wormGuide.GetComponent<WormGuide>().speed * playerTimeController.slowdown;
             rb.angularVelocity = rb.angularVelocity * playerTimeController.slowdown;
+        } else
+        {
+            this.gameObject.layer = 0;
         }
     }
 

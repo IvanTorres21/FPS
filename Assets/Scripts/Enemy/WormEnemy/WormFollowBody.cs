@@ -30,7 +30,10 @@ public class WormFollowBody : MonoBehaviour
         {
             if (i == 0)
             {
-                segments[i].transform.LookAt(wormGuide.transform);
+               if(wormGuide != null)
+                {
+                    segments[i].transform.LookAt(wormGuide.transform);
+                }
                 
             }
             else

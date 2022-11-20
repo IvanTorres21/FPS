@@ -216,19 +216,19 @@ public class WormGuide : MonoBehaviour
     {
         hp -= damage;
         hpBar.fillAmount = hp / 1000f;
-        if(hp/1000f <=  0.75 && speed == 40)
+        if(hp/1000f <=  0.75 && speed == 50)
         {
             speed += 10;
             waitBetweenFragments = 0.15f;
             waitRepeatBehaviour = 1f;
-        } else if (hp / 1000f <= 0.5 && speed == 50)
+        } else if (hp / 1000f <= 0.5 && speed == 60)
         {
             speed += 10;
             timeBetweenAttacks.y = 7f;
             waitBetweenFragments = 0.1f;
             waitRepeatBehaviour = 0.8f;
             waitBeforeNextAttack = 1.5f;
-        } else if (hp / 1000f <= 0.25 && speed == 55)
+        } else if (hp / 1000f <= 0.25 && speed == 70)
         {
             speed += 10;
             timeBetweenAttacks.x = 1f;
