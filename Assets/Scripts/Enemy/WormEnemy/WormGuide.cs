@@ -113,9 +113,9 @@ public class WormGuide : MonoBehaviour
     {
         nextPoint = referencePoint.transform.position;
         int steps = 1;
-        while (steps <= 2)
+        while (steps <= 4)
         {
-            transform.LookAt(ControlPointCalculation(steps / 2f));
+            transform.LookAt(ControlPointCalculation(steps / 4f));
             steps++;
             yield return new WaitForSeconds(waitBetweenFragments);
         }
@@ -153,9 +153,9 @@ public class WormGuide : MonoBehaviour
                 else if (isDigging && !controlPointReached)
                 {
                     int steps = 1;
-                    while (steps <= 2)
+                    while (steps <= 4)
                     {
-                        transform.LookAt(ControlPointCalculation(steps / 2f));
+                        transform.LookAt(ControlPointCalculation(steps / 4f));
                         steps++;
                         yield return new WaitForSeconds(waitBetweenFragments);
                     }
@@ -181,9 +181,9 @@ public class WormGuide : MonoBehaviour
             if(isAttacking)
             {
                 int steps = 1;
-                while (steps <= 2)
+                while (steps <= 4)
                 {
-                    transform.LookAt(ControlPointCalculation(steps / 2f));
+                    transform.LookAt(ControlPointCalculation(steps / 4f));
                     steps++;
                     yield return new WaitForSeconds(waitBetweenFragments);
                 }
