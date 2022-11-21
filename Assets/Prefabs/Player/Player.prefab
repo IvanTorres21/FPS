@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 17395381016031296}
   - component: {fileID: 17395381016031297}
   - component: {fileID: 17395381016031302}
+  - component: {fileID: 3095194304069463615}
   m_Layer: 3
   m_Name: Model
   m_TagString: Untagged
@@ -91,13 +92,27 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 17395381016031300}
-  m_Material: {fileID: 13400000, guid: d8b7e8035c2408a4ca2d3128456230dc, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!136 &3095194304069463615
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 17395381016031300}
+  m_Material: {fileID: 13400000, guid: d8b7e8035c2408a4ca2d3128456230dc, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.6
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.2, z: 0}
 --- !u!1 &17395381111835092
 GameObject:
   m_ObjectHideFlags: 0
@@ -284,7 +299,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isGrounded: 0
-  jumpForce: 150
+  jumpForce: 180
   postProcessing: {fileID: 0}
 --- !u!114 &17395381306556572
 MonoBehaviour:

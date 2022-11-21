@@ -9,6 +9,7 @@ public class BreakingGround : MonoBehaviour
     private Rigidbody rb;
     private bool isSpring;
     private PlayerTimeController timeController;
+    public bool isLock = false;
 
     private void Start()
     {
@@ -33,6 +34,11 @@ public class BreakingGround : MonoBehaviour
         hp -= damage;
         if(hp <= 0)
         {
+            if(isLock)
+            {
+                transform.parent.Find("Hatch").GetComponent<Rigidbody>().isKinematic = false;
+                transform.parent.Find("Hatch").GetComponent<InteracteableObjectController>().isHatch = false;
+            }
             Destroy(this.gameObject);
         }
     }

@@ -10,10 +10,10 @@ public class PlayerMovementController : MonoBehaviour
     [Header("Movement")]
     private float speed = 5f;
     private const float BASE_SPEED = 5f;
-    private const float MAX_SPEED = 9f;
+    private const float MAX_SPEED = 7f;
     [SerializeField] private bool isGrounded = false;
     private bool hasJumped = false;
-    [SerializeField] private float jumpForce = 130f;
+    [SerializeField] private float jumpForce = 180f;
     [SerializeField] private Volume postProcessing;
 
     [Header("Camera")]
@@ -41,7 +41,7 @@ public class PlayerMovementController : MonoBehaviour
 
     private void JumpPlayer()
     {
-        if(Input.GetButtonDown("Jump") && isGrounded)
+        if(Input.GetButtonDown("Jump") && isGrounded && !hasJumped)
         {
             hasJumped = true;
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
@@ -83,8 +83,8 @@ public class PlayerMovementController : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("Interacteable"))
         {
-            isGrounded = true;
             hasJumped = false;
+            isGrounded = true;
         }
     }
 

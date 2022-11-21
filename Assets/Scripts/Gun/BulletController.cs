@@ -14,7 +14,7 @@ public class BulletController : MonoBehaviour
     private TrailRenderer trailRenderer;
     private PlayerTimeController timeController;
     [SerializeField] private GameObject particles;
-    [SerializeField] public int damage { get; private set; } = 5;
+    [SerializeField] public int damage = 5;
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -61,8 +61,9 @@ public class BulletController : MonoBehaviour
             }
             Vector3 forward = transform.forward;
             Vector3 normal = collision.contacts[0].normal;
-
+            
             Vector3 newSpeed = -2 * (Vector3.Dot(forward, normal) * normal) + forward;
+            transform.LookAt(newSpeed);
             speed = speed * 0.7f;
             currentSpeed = speed * newSpeed;
             canRicochet = false;

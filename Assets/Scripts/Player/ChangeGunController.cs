@@ -38,6 +38,11 @@ public class ChangeGunController : MonoBehaviour
             currentWeapon = 2;
             changeWeapon();
         }
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            currentWeapon = 3;
+            changeWeapon();
+        }
     }
 
     private void changeWeapon()

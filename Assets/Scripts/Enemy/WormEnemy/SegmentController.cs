@@ -26,6 +26,8 @@ public class SegmentController : MonoBehaviour
             rb.angularVelocity = rb.angularVelocity * playerTimeController.slowdown;
         } else
         {
+            damage = 0;
+            rb.useGravity = true;
             this.gameObject.layer = 0;
         }
     }
@@ -55,7 +57,10 @@ public class SegmentController : MonoBehaviour
             BulletController bc;
             if (collision.gameObject.TryGetComponent<BulletController>(out bc))
             {
-                wormGuide.GetComponent<WormGuide>().GetHurt(isHead ? bc.damage : bc.damage / 5);
+               if(wormGuide != null)
+                {
+                    wormGuide.GetComponent<WormGuide>().GetHurt(isHead ? bc.damage : bc.damage / 5);
+                }
             }
         }
     }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.08989241, g: 0.097935945, b: 0.13293839, a: 1}
+  m_IndirectSpecularColor: {r: 0.0898923, g: 0.09793586, b: 0.13293806, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6686,15 +6686,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 17395381306556562, guid: a2735ddbe5281a24295cc062a9eb96a3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.5672064
+      value: 1.63
       objectReference: {fileID: 0}
     - target: {fileID: 17395381306556562, guid: a2735ddbe5281a24295cc062a9eb96a3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 17.76
+      value: 3.1
       objectReference: {fileID: 0}
     - target: {fileID: 17395381306556562, guid: a2735ddbe5281a24295cc062a9eb96a3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.2641869
+      value: -2.85
       objectReference: {fileID: 0}
     - target: {fileID: 17395381306556562, guid: a2735ddbe5281a24295cc062a9eb96a3, type: 3}
       propertyPath: m_LocalRotation.w
@@ -6732,6 +6732,10 @@ PrefabInstance:
       propertyPath: postProcessing
       value: 
       objectReference: {fileID: 1664967502}
+    - target: {fileID: 17395381306556573, guid: a2735ddbe5281a24295cc062a9eb96a3, type: 3}
+      propertyPath: jumpForce
+      value: 160
+      objectReference: {fileID: 0}
     - target: {fileID: 17395381306556573, guid: a2735ddbe5281a24295cc062a9eb96a3, type: 3}
       propertyPath: postProcessing
       value: 
@@ -8249,7 +8253,14 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Left Mouse Button to Shoot
+  m_text: 'Left Mouse Button to Shoot.
+
+    Right Mouse Button to Aim.
+
+    1,2,3
+    change Weapon
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

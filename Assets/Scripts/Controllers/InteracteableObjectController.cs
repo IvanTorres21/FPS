@@ -10,6 +10,7 @@ public class InteracteableObjectController : MonoBehaviour
     public float impactForce;
     private PlayerTimeController timeController;
     private bool timeHasPaused = false;
+    public bool isHatch = false;
 
     private void Start()
     {
@@ -23,10 +24,10 @@ public class InteracteableObjectController : MonoBehaviour
         {
             prevSpeed = rb.velocity;
             timeHasPaused = true;
-            rb.isKinematic = true;
+            if (!isHatch) rb.isKinematic = true;
         } else if (!timeController.isTimePaused && timeHasPaused)
         {
-            rb.isKinematic = false;
+            if(!isHatch) rb.isKinematic = false;
             rb.velocity = prevSpeed;
             timeHasPaused = false;
         }
@@ -39,7 +40,7 @@ public class InteracteableObjectController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("BulletSmall"))
+        if(collision.gameObject.CompareTag("BulletSmall") && rb.useGravity)
         {
             rb.AddForce(collision.contacts[0].normal * impactForce, ForceMode.Impulse);
         }
