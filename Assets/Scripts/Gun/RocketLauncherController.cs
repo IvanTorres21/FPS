@@ -58,10 +58,12 @@ public class RocketLauncherController : MonoBehaviour
         else if (Input.GetMouseButton(1))
         {
             transform.localPosition = aimPosition;
+            GetComponent<RecoilScript>().initialGunPosition = aimPosition;
         }
         else if (Input.GetMouseButtonUp(1))
         {
             transform.localPosition = waistPosition;
+            GetComponent<RecoilScript>().initialGunPosition = waistPosition;
         }
 
     }
@@ -88,7 +90,7 @@ public class RocketLauncherController : MonoBehaviour
 
     private IEnumerator shootBullet()
     {
-        
+        recoilScript.recoil();
         shootSound.Play();
         isShooting = true;
         current_ammo--;
