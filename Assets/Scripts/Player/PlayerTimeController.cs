@@ -61,8 +61,8 @@ public class PlayerTimeController : MonoBehaviour
 
     private void UpdateMagicLeft()
     {
-        magicBar.fillAmount = magicLeft / 1000f;
-        vi.intensity.value = Mathf.Abs(((magicLeft / 1000) - 1) / 2);
+        magicBar.fillAmount = magicLeft / 2000f;
+        vi.intensity.value = Mathf.Abs(((magicLeft / 2000) - 1) / 2);
 
     }
 

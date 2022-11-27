@@ -20,6 +20,7 @@ public class BasicEnemyController : MonoBehaviour
     private const float maxSpeed = 6f;
     private float jumpForce = 3f;
     private bool isGrounded;
+    public bool canSurround = true;
 
     private PlayerTimeController timeController;
     private bool isFollowing = false;
@@ -80,7 +81,7 @@ public class BasicEnemyController : MonoBehaviour
         if((Vector3.Distance(transform.position, player.transform.position) <= 30f))
         {
             // If there are twenty or more enemies they act as a hive
-            if (gameObject.transform.parent.transform.childCount >= 20)
+            if (gameObject.transform.parent.transform.childCount >= 20 || !canSurround)
             {
                 if (!timeHasBeenPaused)
                 {
@@ -253,6 +254,7 @@ public class BasicEnemyController : MonoBehaviour
     private void UpdatePaths()
     {
         NavMeshPath nav = new NavMeshPath();
+        Debug.Log(nav.corners.Length);
         NavMesh.CalculatePath(transform.position, player.transform.position, NavMesh.AllAreas, nav);
         paths = nav.corners.ToList<Vector3>();
     }

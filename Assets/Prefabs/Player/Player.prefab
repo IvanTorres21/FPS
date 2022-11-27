@@ -313,7 +313,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cfd4c844edccf7469ed7a15c41f7074, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  magicLeft: 1000
+  magicLeft: 2000
   magicBar: {fileID: 0}
   postProcessing: {fileID: 0}
 --- !u!114 &503495353
