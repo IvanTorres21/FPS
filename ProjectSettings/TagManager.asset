@@ -9,6 +9,7 @@ TagManager:
   - Interacteable
   - Enemy
   - Worm
+  - EnemyBullet
   layers:
   - Default
   - TransparentFX

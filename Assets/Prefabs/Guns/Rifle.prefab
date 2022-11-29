@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 587784647434660662}
   - component: {fileID: 1007323179}
   - component: {fileID: 6725898841569366407}
+  - component: {fileID: -8731422454672968730}
   m_Layer: 3
   m_Name: Rifle
   m_TagString: Untagged
@@ -51,6 +52,7 @@ MonoBehaviour:
   bullet: {fileID: 4309594328650824831, guid: 9acf9c507124c3846bd9cf7f8c1c0bcc, type: 3}
   spawnPoint: {fileID: 3720019937406834658}
   bulletPool: {fileID: 0}
+  isReloading: 0
   aimPosition: {x: -0.271, y: 0.105, z: 0}
   waistPosition: {x: 0, y: 0, z: 0}
   isAutomatic: 1
@@ -276,6 +278,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-8731422454672968730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2354108816036344220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78151fea0628fd345906d57af81e8102, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AIM_FOV: 70
+  BASE_FOV: 86
+  model: {fileID: 0}
+  crosshair: {fileID: 0}
+  isSniper: 0
 --- !u!1 &3720019937406834658
 GameObject:
   m_ObjectHideFlags: 0

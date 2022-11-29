@@ -24,7 +24,7 @@ public class BasicEnemyController : MonoBehaviour
 
     private PlayerTimeController timeController;
     private bool isFollowing = false;
-    private bool hasBeenAttacked = false;
+
     private bool timeHasBeenPaused = false;
     private float confusionTime = 3f;
     private Quaternion lastRotation;
@@ -254,7 +254,6 @@ public class BasicEnemyController : MonoBehaviour
     private void UpdatePaths()
     {
         NavMeshPath nav = new NavMeshPath();
-        Debug.Log(nav.corners.Length);
         NavMesh.CalculatePath(transform.position, player.transform.position, NavMesh.AllAreas, nav);
         paths = nav.corners.ToList<Vector3>();
     }
@@ -272,7 +271,6 @@ public class BasicEnemyController : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("BulletSmall"))
         {
-            hasBeenAttacked = true;
             BulletController bc;
             if (collision.gameObject.TryGetComponent<BulletController>(out bc))
             {

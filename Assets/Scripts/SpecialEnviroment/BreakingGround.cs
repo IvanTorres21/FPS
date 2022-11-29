@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class BreakingGround : MonoBehaviour
 {
+
     [SerializeField] private int hp = 100;
     private SpringJoint springJoint;
-    private Rigidbody rb;
     private bool isSpring;
-    private PlayerTimeController timeController;
     public bool isLock = false;
 
     private void Start()
@@ -16,8 +15,6 @@ public class BreakingGround : MonoBehaviour
         if(TryGetComponent<SpringJoint>(out springJoint))
         {
             isSpring = true;
-            rb = GetComponent<Rigidbody>();
-            timeController = FindObjectOfType<PlayerTimeController>();
         }
     }
 

@@ -56,9 +56,11 @@ public class ChangeGunController : MonoBehaviour
         if(currentWeapon == 2)
         {
             guns[currentWeapon].GetComponent<RocketLauncherController>().SetAmmoText();
+            guns[currentWeapon].GetComponent<RocketLauncherController>().isReloading = false;
         } else
         {
             guns[currentWeapon].GetComponent<GunController>().SetAmmoText();
+            guns[currentWeapon].GetComponent<GunController>().isReloading = false;
         }
     }
 }

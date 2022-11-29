@@ -11,7 +11,7 @@ public class GunController : MonoBehaviour
     public GameObject spawnPoint;
     public GameObject bulletPool;
     private bool isShooting = false;
-    private bool isReloading = false;
+    public bool isReloading = false;
 
     [SerializeField] private Vector3 aimPosition;
     [SerializeField] private Vector3 waistPosition;

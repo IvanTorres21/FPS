@@ -84,6 +84,7 @@ MonoBehaviour:
   bullet: {fileID: 4309594328650824831, guid: 447480ed143b74448a3dd7cb4a81b454, type: 3}
   spawnPoint: {fileID: 7085222274863267812}
   bulletPool: {fileID: 0}
+  isReloading: 0
   aimPosition: {x: -0.258, y: 0.187, z: -1.725}
   waistPosition: {x: 0, y: -0.14, z: 0}
   isAutomatic: 1
@@ -129,8 +130,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78151fea0628fd345906d57af81e8102, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AIM_FOV: 30
+  BASE_FOV: 86
   model: {fileID: 4347140464356029095}
   crosshair: {fileID: 0}
+  isSniper: 1
 --- !u!82 &5905325714057666605
 AudioSource:
   m_ObjectHideFlags: 0

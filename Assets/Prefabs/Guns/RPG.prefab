@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5726742315021238046}
   - component: {fileID: 4700903598111790209}
   - component: {fileID: 7712245576467916303}
+  - component: {fileID: -4445711092696911638}
   m_Layer: 0
   m_Name: RPG
   m_TagString: Untagged
@@ -53,6 +54,7 @@ MonoBehaviour:
   bullet: {fileID: 7958788395563430611, guid: 10b3103a29e1d9f488746588bc1d0f08, type: 3}
   spawnPoint: {fileID: 1679545893442904746}
   bulletPool: {fileID: 0}
+  isReloading: 0
   aimPosition: {x: -0.387, y: 0, z: 0}
   waistPosition: {x: 0, y: 0, z: 0}
   isAutomatic: 0
@@ -279,6 +281,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-4445711092696911638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1679545892854123774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78151fea0628fd345906d57af81e8102, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AIM_FOV: 70
+  BASE_FOV: 86
+  model: {fileID: 0}
+  crosshair: {fileID: 0}
+  isSniper: 0
 --- !u!1 &1679545893234240768
 GameObject:
   m_ObjectHideFlags: 0

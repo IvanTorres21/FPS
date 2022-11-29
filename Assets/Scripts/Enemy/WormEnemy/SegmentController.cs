@@ -32,19 +32,6 @@ public class SegmentController : MonoBehaviour
         }
     }
 
-    private bool CheckDistanceIsRight()
-    {
-        return true;
-        Ray ray = new Ray(transform.position, transform.forward);
-        if(Physics.Raycast(ray, transform.parent.transform.localScale.z * transform.localScale.z + 1f, 1 << 9))
-        {
-            return false;
-        } else
-        {
-            return true;
-        }
-    }
-
     public void ExplosionHit(int damage)
     {
         wormGuide.GetComponent<WormGuide>().GetHurt(isHead ? damage : damage / 5);

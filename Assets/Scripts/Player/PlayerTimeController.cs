@@ -12,9 +12,11 @@ public class PlayerTimeController : MonoBehaviour
     [SerializeField] public float slowdown { get; private set; } = 1f;
     [SerializeField] private float magicLeft = 1000;
     [SerializeField] private Image magicBar;
+    [SerializeField] private Image gotHit;
 
     private bool canBeHit = true;
     [SerializeField] private Volume postProcessing;
+    public float alpha = 87f;
     private ChromaticAberration cr;
     private FilmGrain fg;
     private WhiteBalance wb;
@@ -42,21 +44,24 @@ public class PlayerTimeController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Z))
+       if(magicLeft > 0)
         {
-            StopAllCoroutines();
-            isTimePaused = !isTimePaused;
-            if (!isTimePaused)
+            if (Input.GetKeyDown(KeyCode.Z))
             {
-                RestoreTime();
+                StopAllCoroutines();
+                isTimePaused = !isTimePaused;
+                if (!isTimePaused)
+                {
+                    RestoreTime();
+                }
+                else
+                {
+                    StartCoroutine(SlowTimeDown());
+                }
             }
-            else
-            {
-                StartCoroutine(SlowTimeDown());
-            }
-        }
 
-        UpdateMagicLeft();
+            UpdateMagicLeft();
+        }
     }
 
     private void UpdateMagicLeft()
@@ -73,6 +78,17 @@ public class PlayerTimeController : MonoBehaviour
     }
 
 
+    IEnumerator ReturnAlpha()
+    {
+        alpha = 87f;
+        do
+        {
+            alpha -= 1f;
+            gotHit.color = new Color(1f,1f,1f, alpha);
+            yield return new WaitForSeconds(0.05f);
+        } while (gotHit.color.a > 0);
+
+    }
 
     IEnumerator SlowTimeDown()
     {
@@ -132,6 +148,14 @@ public class PlayerTimeController : MonoBehaviour
             this.magicLeft -= be.damage;
             canBeHit = false;
         }
+        BulletController bc;
+        if(other.TryGetComponent<BulletController>(out bc))
+        {
+            this.magicLeft -= bc.damage;
+            canBeHit = false;
+        }
+        StopCoroutine(ReturnAlpha());
+        StartCoroutine(ReturnAlpha());
         StartCoroutine(MakeInvulnerable());
     }
 
@@ -151,7 +175,7 @@ public class PlayerTimeController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if ((collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Worm")) && canBeHit && !isTimePaused)
+        if ((collision.gameObject.CompareTag("EnemyBullet") || collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Worm")) && canBeHit && !isTimePaused)
         {
             CheckHit(collision.gameObject);
         }

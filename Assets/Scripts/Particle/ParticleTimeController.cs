@@ -5,12 +5,12 @@ using UnityEngine;
 public class ParticleTimeController : MonoBehaviour
 {
     private PlayerTimeController timeController;
-    private ParticleSystem particleSystem;
+    private ParticleSystem particle;
     private bool hasBeenPaused = false;
 
     private void Awake()
     {
-        particleSystem = GetComponent<ParticleSystem>();
+        particle = GetComponent<ParticleSystem>();
     }
 
     private void Start()
@@ -21,7 +21,7 @@ public class ParticleTimeController : MonoBehaviour
 
     private void Update()
     {
-        var main = particleSystem.main;
+        var main = particle.main;
         if (timeController.isTimePaused)
         {        
             main.simulationSpeed = timeController.slowdown;
@@ -37,7 +37,7 @@ public class ParticleTimeController : MonoBehaviour
             hasBeenPaused = false;
         }
 
-        if (particleSystem.isStopped) Destroy(this.gameObject);
+        if (particle.isStopped) Destroy(this.gameObject);
     }
 
 }
