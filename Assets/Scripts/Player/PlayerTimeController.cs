@@ -48,7 +48,7 @@ public class PlayerTimeController : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Z))
             {
-                StopAllCoroutines();
+                
                 isTimePaused = !isTimePaused;
                 if (!isTimePaused)
                 {
@@ -56,6 +56,9 @@ public class PlayerTimeController : MonoBehaviour
                 }
                 else
                 {
+                    StopAllCoroutines();
+                    if (alpha > 0f)
+                        StartCoroutine(ReturnAlpha());
                     StartCoroutine(SlowTimeDown());
                 }
             }
@@ -74,19 +77,21 @@ public class PlayerTimeController : MonoBehaviour
     private void RestoreTime()
     {
         StopAllCoroutines();
+        if (alpha > 0f)
+            StartCoroutine(ReturnAlpha());
         StartCoroutine(BringTimeBack());
     }
 
 
     IEnumerator ReturnAlpha()
     {
-        alpha = 87f;
-        do
+        alpha = gotHit.color.a;
+        for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / 1)
         {
-            alpha -= 1f;
-            gotHit.color = new Color(1f,1f,1f, alpha);
-            yield return new WaitForSeconds(0.05f);
-        } while (gotHit.color.a > 0);
+            Color newColor = new Color(1, 1, 1, Mathf.Lerp(alpha, 0, t));
+            gotHit.color = newColor;
+            yield return null;
+        }
 
     }
 
@@ -132,7 +137,7 @@ public class PlayerTimeController : MonoBehaviour
 
     }
 
-    private void CheckHit(GameObject other)
+    public void CheckHit(GameObject other)
     {
         Debug.Log("Ouchie");
         // I really should change this so that enemies have a standar controller with only useful data...
@@ -155,8 +160,24 @@ public class PlayerTimeController : MonoBehaviour
             canBeHit = false;
         }
         StopCoroutine(ReturnAlpha());
+        alpha = 87f;
+        gotHit.color = new Color(1, 1, 1, alpha);
         StartCoroutine(ReturnAlpha());
         StartCoroutine(MakeInvulnerable());
+        if(this.magicLeft <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        Destroy(this.gameObject.GetComponent<PlayerMovementController>());
+        this.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+        this.gameObject.transform.GetChild(0).gameObject.SetActive(false);
+        GameObject canvas = GameObject.Find("Canvas");
+        canvas.transform.GetChild(canvas.transform.childCount - 1).GetComponent<Animator>().Play("Fade");
+        
     }
 
     IEnumerator MakeInvulnerable()
@@ -167,7 +188,7 @@ public class PlayerTimeController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if ((other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("Worm")) && canBeHit && !isTimePaused)
+        if ((other.gameObject.CompareTag("EnemyBullet") || other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("Worm")) && canBeHit && slowdown != 0f)
         {
             CheckHit(other.gameObject);
         }
@@ -175,7 +196,7 @@ public class PlayerTimeController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if ((collision.gameObject.CompareTag("EnemyBullet") || collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Worm")) && canBeHit && !isTimePaused)
+        if ((collision.gameObject.CompareTag("EnemyBullet") || collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Worm")) && canBeHit && slowdown != 0f)
         {
             CheckHit(collision.gameObject);
         }

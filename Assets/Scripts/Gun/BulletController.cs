@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -48,8 +49,8 @@ public class BulletController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Instantiate(particles, transform.position, Quaternion.identity);
-        //Destroy(generatedParticle, 1f);
+        GameObject generatedParticle = Instantiate(particles, transform.position, Quaternion.identity);
+        Destroy(generatedParticle, 1f);
         if(collision.gameObject.CompareTag("Interacteable") || collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Worm"))
         {
             Destroy(this.gameObject);
@@ -64,6 +65,7 @@ public class BulletController : MonoBehaviour
             
             Vector3 newSpeed = -2 * (Vector3.Dot(forward, normal) * normal) + forward;
             transform.LookAt(newSpeed);
+            transform.GetChild(0).transform.LookAt(newSpeed);
             speed = speed * 0.7f;
             currentSpeed = speed * newSpeed;
             canRicochet = false;
