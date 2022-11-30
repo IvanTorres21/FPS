@@ -42,10 +42,16 @@ public class PlayerTimeController : MonoBehaviour
         }
     }
 
+    private void FixedUpdate()
+    {
+        ReturnAlpha();
+    }
+
     private void Update()
     {
        if(magicLeft > 0)
         {
+            
             if (Input.GetKeyDown(KeyCode.Z))
             {
                 
@@ -57,8 +63,6 @@ public class PlayerTimeController : MonoBehaviour
                 else
                 {
                     StopAllCoroutines();
-                    if (alpha > 0f)
-                        StartCoroutine(ReturnAlpha());
                     StartCoroutine(SlowTimeDown());
                 }
             }
@@ -77,20 +81,20 @@ public class PlayerTimeController : MonoBehaviour
     private void RestoreTime()
     {
         StopAllCoroutines();
-        if (alpha > 0f)
-            StartCoroutine(ReturnAlpha());
         StartCoroutine(BringTimeBack());
     }
 
 
-    IEnumerator ReturnAlpha()
+    private void ReturnAlpha()
     {
-        alpha = gotHit.color.a;
-        for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / 1)
+        if(alpha > 0f)
         {
-            Color newColor = new Color(1, 1, 1, Mathf.Lerp(alpha, 0, t));
-            gotHit.color = newColor;
-            yield return null;
+            alpha = gotHit.color.a;
+            for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / 1)
+            {
+                Color newColor = new Color(1, 1, 1, Mathf.Lerp(alpha, 0, t));
+                gotHit.color = newColor;
+            }
         }
 
     }
@@ -159,10 +163,8 @@ public class PlayerTimeController : MonoBehaviour
             this.magicLeft -= bc.damage;
             canBeHit = false;
         }
-        StopCoroutine(ReturnAlpha());
         alpha = 87f;
         gotHit.color = new Color(1, 1, 1, alpha);
-        StartCoroutine(ReturnAlpha());
         StartCoroutine(MakeInvulnerable());
         if(this.magicLeft <= 0)
         {
@@ -177,6 +179,7 @@ public class PlayerTimeController : MonoBehaviour
         this.gameObject.transform.GetChild(0).gameObject.SetActive(false);
         GameObject canvas = GameObject.Find("Canvas");
         canvas.transform.GetChild(canvas.transform.childCount - 1).GetComponent<Animator>().Play("Fade");
+        GameManager.LoadLevel("Level01");
         
     }
 
@@ -200,5 +203,10 @@ public class PlayerTimeController : MonoBehaviour
         {
             CheckHit(collision.gameObject);
         }
+    }
+
+    public void MagicCheat()
+    {
+        magicLeft = 2000;
     }
 }

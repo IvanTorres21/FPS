@@ -78,12 +78,20 @@ public class PlayerMovementController : MonoBehaviour
     }
 
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("Interacteable"))
+        {
+
+            hasJumped = false;
+        }
+    }
 
     private void OnTriggerStay(Collider other)
     {
         if(other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("Interacteable"))
         {
-            hasJumped = false;
+            
             isGrounded = true;
         }
     }

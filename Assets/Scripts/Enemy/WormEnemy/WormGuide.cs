@@ -242,6 +242,7 @@ public class WormGuide : MonoBehaviour
         if (hp <= 0)
         {
             bossHPBar.SetActive(false);
+            GameObject.Find("WinningZone").SetActive(true);
             Destroy(this.gameObject);
         }
     }
