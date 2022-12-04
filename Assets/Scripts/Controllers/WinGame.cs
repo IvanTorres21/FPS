@@ -9,7 +9,7 @@ public class WinGame : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
-            GameManager.LoadLevel("TutorialLevel");
+            GameManager.LoadLevel("Menu");
         }
     }
 }

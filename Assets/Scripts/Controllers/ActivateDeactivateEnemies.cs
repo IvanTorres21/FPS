@@ -8,6 +8,8 @@ public class ActivateDeactivateEnemies : MonoBehaviour
 
     [SerializeField] private List<GameObject> objects;
 
+    [SerializeField] private bool stopsMusic;
+
     private void OnTriggerStay(Collider other)
     {
         if(other.CompareTag("Player"))
@@ -15,6 +17,11 @@ public class ActivateDeactivateEnemies : MonoBehaviour
             foreach (GameObject item in objects)
             {
                 item.SetActive(activator);
+            }
+
+            if(stopsMusic)
+            {
+                GameObject.Find("MusicManager").GetComponent<AudioSource>().Stop();
             }
         }
     }

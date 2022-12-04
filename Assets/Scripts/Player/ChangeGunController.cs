@@ -11,7 +11,7 @@ public class ChangeGunController : MonoBehaviour
 
     private void Start()
     {
-        foreach(Transform gun in GameObject.Find("GunHolder").transform)
+        foreach(Transform gun in transform.GetChild(1).GetChild(0))
         {
             guns.Add(gun.gameObject);
         }
@@ -61,6 +61,7 @@ public class ChangeGunController : MonoBehaviour
         {
             guns[currentWeapon].GetComponent<GunController>().SetAmmoText();
             guns[currentWeapon].GetComponent<GunController>().isReloading = false;
+            guns[currentWeapon].GetComponent<GunController>().isShooting = false;
         }
     }
 }

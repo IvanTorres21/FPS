@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,7 +9,7 @@ public class GunController : MonoBehaviour
     public GameObject bullet;
     public GameObject spawnPoint;
     public GameObject bulletPool;
-    private bool isShooting = false;
+    public bool isShooting = false;
     public bool isReloading = false;
 
     [SerializeField] private Vector3 aimPosition;
@@ -50,24 +49,28 @@ public class GunController : MonoBehaviour
 
     private void Update()
     {
-        if((Input.GetMouseButtonDown(0) && !isShooting && current_ammo != 0 & !isReloading) || (isAutomatic && Input.GetMouseButton(0) && !isShooting && current_ammo != 0 & !isReloading))
+        if ((Input.GetMouseButtonDown(0) && !isShooting && current_ammo != 0 & !isReloading) || (isAutomatic && Input.GetMouseButton(0) && !isShooting && current_ammo != 0 & !isReloading))
         {
             StartCoroutine(shootBullet());
         }
-        if(Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R))
         {
             StartCoroutine(reloadGun());
-        } else if (Input.GetMouseButton(1))
+        }
+        else if (Input.GetMouseButton(1))
         {
             transform.localPosition = aimPosition;
             GetComponent<RecoilScript>().initialGunPosition = aimPosition;
-        } else if (Input.GetMouseButtonUp(1))
+        }
+        else if (Input.GetMouseButtonUp(1))
         {
             transform.localPosition = waistPosition;
             GetComponent<RecoilScript>().initialGunPosition = waistPosition;
         }
 
     }
+
+    
 
     private IEnumerator reloadGun()
     {

@@ -22,6 +22,8 @@ public class PlayerTimeController : MonoBehaviour
     private WhiteBalance wb;
     private Vignette vi;
 
+    private bool hasDied = false;
+
     private void Start()
     {
        if (postProcessing.profile.TryGet<ChromaticAberration>(out cr))
@@ -62,6 +64,7 @@ public class PlayerTimeController : MonoBehaviour
                 }
                 else
                 {
+                    gameObject.GetComponent<AudioSource>().Play();
                     StopAllCoroutines();
                     StartCoroutine(SlowTimeDown());
                 }
@@ -174,13 +177,21 @@ public class PlayerTimeController : MonoBehaviour
 
     private void Die()
     {
-        Destroy(this.gameObject.GetComponent<PlayerMovementController>());
-        this.gameObject.GetComponent<Rigidbody>().isKinematic = true;
-        this.gameObject.transform.GetChild(0).gameObject.SetActive(false);
-        GameObject canvas = GameObject.Find("Canvas");
-        canvas.transform.GetChild(canvas.transform.childCount - 1).GetComponent<Animator>().Play("Fade");
-        GameManager.LoadLevel("Level01");
-        
+        if(!hasDied)
+        {
+            hasDied = true;
+            Destroy(this.gameObject.GetComponent<PlayerMovementController>());
+            Destroy(this.gameObject.transform.GetChild(1).GetChild(0).gameObject);
+            this.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+            this.gameObject.transform.GetChild(0).gameObject.SetActive(false);
+            GameObject canvas = GameObject.Find("Canvas");
+
+            // Activate reset button and all that jazz
+            canvas.transform.GetChild(canvas.transform.childCount - 3).GetComponent<Animator>().Play("Fade");
+            canvas.transform.GetChild(canvas.transform.childCount - 2).gameObject.SetActive(true);
+            Cursor.lockState = CursorLockMode.Confined;
+        }
+
     }
 
     IEnumerator MakeInvulnerable()

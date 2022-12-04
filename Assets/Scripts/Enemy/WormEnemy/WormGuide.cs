@@ -36,7 +36,7 @@ public class WormGuide : MonoBehaviour
     private Vector3 nextPoint = Vector3.zero;
 
     public GameObject test;
-
+    public GameObject winningZone;
 
 
     private void Start()
@@ -239,10 +239,11 @@ public class WormGuide : MonoBehaviour
             waitRepeatBehaviour = 0.7f;
             waitBeforeNextAttack = 1f;
         }
-        if (hp <= 0)
+        if (hp <= 0 && bossHPBar.activeSelf)
         {
             bossHPBar.SetActive(false);
-            GameObject.Find("WinningZone").SetActive(true);
+            winningZone.SetActive(true);
+            GameObject.Find("MusicManager").SetActive(false);
             Destroy(this.gameObject);
         }
     }

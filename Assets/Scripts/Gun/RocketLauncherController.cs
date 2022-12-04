@@ -92,13 +92,11 @@ public class RocketLauncherController : MonoBehaviour
     {
         recoilScript.recoil();
         shootSound.Play();
-        isShooting = true;
         current_ammo--;
         SetAmmoText();
         FakeBullet.SetActive(false);
         GameObject currentBullet = Instantiate(bullet, spawnPoint.transform.position, spawnPoint.transform.rotation, bulletPool.transform);
         currentBullet.GetComponent<Rigidbody>().velocity = spawnPoint.transform.forward * currentBullet.GetComponent<MissileController>().speed;
         yield return new WaitForSecondsRealtime(shootingSpeed);
-        isShooting = false;
     }
 }
